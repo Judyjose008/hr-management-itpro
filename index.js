@@ -25,16 +25,9 @@ app.use(express.json());
 app.use(cors());
 
 
-app.use(process.env.API_VERSION, require('./app/modules/user/user.route'));
-app.use(process.env.API_VERSION, require('./app/modules/business-hours/business-hours.route'));
-app.use(process.env.API_VERSION, require('./app/modules/vendor/vendor.route'));
-app.use(process.env.API_VERSION, require('./app/modules/category/category.route'));
-app.use(process.env.API_VERSION, require('./app/modules/subcategory/subcategory.route'));
-app.use(process.env.API_VERSION, require('./app/modules/menu/menu.route'));
-app.use(process.env.API_VERSION, require('./app/modules/inventory/inventory.route'));
-app.use(process.env.API_VERSION, require('./app/modules/image/image.route'));
-app.use(process.env.API_VERSION, require('./app/modules/menu-items/menu-item.route'));
-app.use(process.env.API_VERSION, require('./app/modules/order/order.route'));
+app.use(require('./app/modules/user/user.route'));
+// app.use(process.env.API_VERSION, require('./app/modules/business-hours/business-hours.route'));
+
 
 
 app.listen(PORT, onServerStarted());

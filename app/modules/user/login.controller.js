@@ -10,7 +10,7 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     try {
         let validated = loginValidator.validate(req.body);
-        if(validated.error) return res.status(400).baseResponse(400,validated.error.details[0].message,{})
+        if(validated.error) return res.status(400).baseResponse(400,validated.error.details[0].message, {});
         const user = await User.findOne({ email });
         if (!user) return res.status(401).json(baseResponse(401, "Invalid email or password",{}));
         const isPasswordValid = await validatePassword(password, user.password);

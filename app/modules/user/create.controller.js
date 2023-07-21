@@ -9,7 +9,7 @@ const createUser = async (req, res) => {
   try {
     let validated = createUserValidator.validate(req.body);
     if (validated.error) return res.status(400).json(baseResponse(400, validated.error.details[0].message, {}));
-    const { first_name, last_name, phone_number, email, password } = req.body;
+    const { first_name, last_name, phone_number, email, password , roles , timezone, joining_date } = req.body;
     const userFound = await User.findOne({ email: email });
     if (userFound) return res.status(400).json(baseResponse(400, 'Email already exists', {}));
     const user = new User({
@@ -17,7 +17,14 @@ const createUser = async (req, res) => {
       last_name: last_name,
       phone_number: phone_number,
       email: email,
-      password: await hashPassword(password)
+      timezone: timezone,
+      joining_date: joining_date,
+      password: await hashPassword(password),
+      roles: roles,
+      created_by: "SUPERADMIN",
+      updated_by: "SUPERADMIN",
+      created_at: Date.now(),
+      updated_at: Date.now()
     });
     await user.save();
     const token = generateUserJWTToken(user);
